@@ -89,6 +89,20 @@ static void test_long_abbreviation(void)
    test_abbreviation(phrase, expected);
 }
 
+static void test_that_ignores_desired_punctuation(void)
+{
+   char *phrase = "Thomas A. Swift’s Electric Rifle";
+   char *expected = "TASER";
+   test_abbreviation(phrase, expected);
+}
+
+static void test_repeated_separators(void)
+{
+   char *phrase = "Complementary metal--oxide , - semiconductor";
+   char *expected = "CMOS";
+   test_abbreviation(phrase, expected);
+}
+
 int main(void)
 {
    UnityBegin("test/test_acronym.c");
@@ -103,5 +117,7 @@ int main(void)
    RUN_TEST(test_empty_string);
    RUN_TEST(test_all_words_starting_with_lowercase);
    RUN_TEST(test_long_abbreviation);
+   RUN_TEST(test_that_ignores_desired_punctuation);
+   RUN_TEST(test_repeated_separators);
    return UnityEnd();
 }
